@@ -1,0 +1,1 @@
+templates 目录是不能直接通过项目地址访问的，需要通过controller层进行跳转。

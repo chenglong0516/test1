@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index of thymeleaf</title>
+</head>
+<body>
+    <!--纯文本-->
+    <span th:text="北京尚学堂"></span>
+    <hr/>
+    <!--model中数据-->
+    <span th:text="${msg}"></span>
+    <hr/>
+    <input th:text="请输入aa" th:value="${msg}"/>
+    <hr/>
+    <span th:text="${#strings.isEmpty(msg1)}"></span>
+    <hr/>
+    <span th:text="${#strings.contains(msg,'一')}"></span>
+    <span th:text="${#strings.startsWith(msg,'Thy')}"></span>
+    <hr/>
+    <span th:text="${#dates.format(date,'yyyy-MM-dd')}"></span>
+    <span th:text="${#dates.month(date)}"></span>
+    <hr/>
+    <!--只有sex值是male才展示这个span-->
+    <span th:if="${sex} == 'male'"> 性别：男</span>
+    <hr/>
+    <!--只有sex值是male才展示这个span-->
+    <div th:switch="${id}">
+        <span th:case="aaa">ID为aaa</span>
+        <span th:case="bbb">ID为bbb</span>
+        <span th:case="ccc">ID为ccc</span>
+    </div>
+
+    <table border="1" width="50%">
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>money</th>
+            <th>index</th>
+            <th>count</th>
+            <th>size</th>
+            <th>odd</th>
+            <th>even</th>
+            <th>first</th>
+            <th>last</th>
+        </tr>
+        <!--随便定义一个变量status, 用于展示状态-->
+        <tr th:each="account,status : ${list}">
+            <td th:text="${account.id}"></td>
+            <td th:text="${account.name}"></td>
+            <td th:text="${account.money}"></td>
+            <td th:text="${status.index}"></td>
+            <td th:text="${status.count}"></td>
+            <td th:text="${status.size}"></td>
+            <td th:text="${status.odd}"></td>
+            <td th:text="${status.even}"></td>
+            <td th:text="${status.first}"></td>
+            <td th:text="${status.last}"></td>
+        </tr>
+    </table>
+
+    <hr/>
+    <table border="1" width="50%">
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>money</th>
+            <th>index</th>
+        </tr>
+        <!--随便定义一个变量status, 用于展示状态-->
+        <tr th:each="account,status : ${map1}">
+            <td th:text="${account.value.id}"></td>
+            <td th:text="${account.value.name}"></td>
+            <td th:text="${account.value.money}"></td>
+            <td th:text="${status.index}"></td>
+        </tr>
+    </table>
+
+    <hr/>
+    request:<span th:text="${#request.getAttribute('req')}"></span>
+    <hr/>
+    session:<span th:text="${#session.getAttribute('session')}"></span>
+    <hr/>
+    context:<span th:text="${#servletContext.getAttribute('context')}"></span>
+
+    <hr/>
+    <a th:href="@{http://www.baidu.com}">aaa</a>
+    <hr/>
+    <a th:href="@{/getAccounts}">getAccounts</a>
+
+    <!--传递参数,普通URL-->
+    <a th:href="@{/testParam?id=1}">testParam?id=1</a>
+    <hr/>
+    <a th:href="@{/testParam(id=1,name=aaa)}">testParam(id=1,name=aaa)</a>
+    <hr/>
+    <a th:href="@{/testParam(id=${id},sex=${sex})}">testParam(id=${id},sex=${sex})</a>
+
+    <!--传递参数,RestFulURL-->
+    <hr/>
+    <a th:href="@{/getAccount/{id}(id=1)}">getAccount/{id}(id=1)</a>
+    <hr/>
+    <a th:href="@{/testParam/{id}/{sex}(id=${id},sex=${sex})}">testParam/{id}/{sex}(id=${id},sex=${sex})</a>
+
+</body>
+</html>
